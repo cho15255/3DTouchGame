@@ -61,6 +61,15 @@ extension GameScene {
         
     }
     
+    func addScore() {
+        scoreLabel = SKLabelNode(fontNamed: "Optima-ExtraBlack")
+        scoreLabel.fontColor = UIColor.yellowColor()
+        scoreLabel.position = CGPoint(x: self.size.width - 150, y: self.size.height - 40)
+        scoreLabel.text = "Score: \(score)"
+        
+        addChild(scoreLabel)
+    }
+    
     func addObstacle(type:ObstacleType) -> SKSpriteNode {
         let obstacle = SKSpriteNode(color: UIColor.whiteColor(), size: CGSize(width: 0, height: 30))
         obstacle.name = "OBSTACLE"
@@ -77,6 +86,19 @@ extension GameScene {
             obstacle.size.width = self.size.width * 0.75
             break
         }
+        
+        obstacle.position = CGPoint(x: 0, y: self.size.height + obstacle.size.height)
+        obstacle.physicsBody = SKPhysicsBody(rectangleOfSize: obstacle.size)
+        obstacle.physicsBody?.categoryBitMask = CollisionBitMask.Obstacle
+        obstacle.physicsBody?.collisionBitMask = 0
+        
+        return obstacle
+    }
+    
+    func addObstacle(width:CGFloat) -> SKSpriteNode {
+        let obstacle = SKSpriteNode(color: UIColor.whiteColor(), size: CGSize(width: width, height: 30))
+        obstacle.name = "OBSTACLE"
+        obstacle.physicsBody?.dynamic = true
         
         obstacle.position = CGPoint(x: 0, y: self.size.height + obstacle.size.height)
         obstacle.physicsBody = SKPhysicsBody(rectangleOfSize: obstacle.size)
@@ -156,6 +178,119 @@ extension GameScene {
             addChild(obst1)
             addChild(obst2)
             addChild(obst3)
+            break
+        }
+    }
+    
+    func addRow(type:Int) {
+        let openingSize:CGFloat = 90
+        
+        switch type {
+        case 0:
+            let obstacleSize = self.size.width / 2 - openingSize
+            
+            let obst1 = addObstacle(obstacleSize)
+            let obst2 = addObstacle(obstacleSize)
+            
+            obst1.position = CGPoint(x: obst1.size.width / 2, y: obst1.position.y)
+            obst2.position = CGPoint(x: self.size.width - obst2.size.width / 2, y: obst2.position.y)
+            
+            addMovement(obst1)
+            addMovement(obst2)
+            
+            addChild(obst1)
+            addChild(obst2)
+            break
+        case 1:
+            let obstacleSize1 = self.size.width / 2 - self.size.width / 12 - 45
+            let obstacleSize2 = self.size.width / 6 - 90
+            
+            let obst1 = addObstacle(obstacleSize1)
+            let obst2 = addObstacle(obstacleSize1)
+            let obst3 = addObstacle(obstacleSize2)
+            
+            obst1.position = CGPoint(x: obst1.size.width / 2, y: obst1.position.y)
+            obst2.position = CGPoint(x: self.size.width - obst2.size.width / 2, y: obst2.position.y)
+            obst3.position = CGPoint(x: self.size.width / 2, y: obst3.position.y)
+            
+            addMovement(obst1)
+            addMovement(obst2)
+            addMovement(obst3)
+            
+            addChild(obst1)
+            addChild(obst2)
+            addChild(obst3)
+            break
+        case 2:
+            let obstacleSize1 = self.size.width / 2 - self.size.width / 6 - 45
+            let obstacleSize2 = self.size.width / 3 - 90
+            
+            let obst1 = addObstacle(obstacleSize1)
+            let obst2 = addObstacle(obstacleSize1)
+            let obst3 = addObstacle(obstacleSize2)
+            
+            obst1.position = CGPoint(x: obst1.size.width / 2, y: obst1.position.y)
+            obst2.position = CGPoint(x: self.size.width - obst2.size.width / 2, y: obst2.position.y)
+            obst3.position = CGPoint(x: self.size.width / 2, y: obst3.position.y)
+            
+            addMovement(obst1)
+            addMovement(obst2)
+            addMovement(obst3)
+            
+            addChild(obst1)
+            addChild(obst2)
+            addChild(obst3)
+            break;
+        case 3:
+            let obstacleSize1 = self.size.width / 2 - self.size.width / 4 - 45
+            let obstacleSize2 = self.size.width / 2 - 90
+            
+            let obst1 = addObstacle(obstacleSize1)
+            let obst2 = addObstacle(obstacleSize1)
+            let obst3 = addObstacle(obstacleSize2)
+            
+            obst1.position = CGPoint(x: obst1.size.width / 2, y: obst1.position.y)
+            obst2.position = CGPoint(x: self.size.width - obst2.size.width / 2, y: obst2.position.y)
+            obst3.position = CGPoint(x: self.size.width / 2, y: obst3.position.y)
+            
+            addMovement(obst1)
+            addMovement(obst2)
+            addMovement(obst3)
+            
+            addChild(obst1)
+            addChild(obst2)
+            addChild(obst3)
+            break
+        case 4:
+            let obstacleSize1 = self.size.width / 2 - self.size.width * 5 / 12 - 45
+            let obstacleSize2 = self.size.width * 5 / 6 - 90
+            
+            let obst1 = addObstacle(obstacleSize1)
+            let obst2 = addObstacle(obstacleSize1)
+            let obst3 = addObstacle(obstacleSize2)
+            
+            obst1.position = CGPoint(x: obst1.size.width / 2, y: obst1.position.y)
+            obst2.position = CGPoint(x: self.size.width - obst2.size.width / 2, y: obst2.position.y)
+            obst3.position = CGPoint(x: self.size.width / 2, y: obst3.position.y)
+            
+            addMovement(obst1)
+            addMovement(obst2)
+            addMovement(obst3)
+            
+            addChild(obst1)
+            addChild(obst2)
+            addChild(obst3)
+            break;
+        case 5:
+            let obstacleSize = self.size.width - openingSize * 2
+            
+            let obst = addObstacle(obstacleSize)
+            obst.position = CGPoint(x: self.size.width / 2, y: obst.position.y)
+            addMovement(obst)
+            addChild(obst)
+            
+            break
+        default:
             break
         }
     }

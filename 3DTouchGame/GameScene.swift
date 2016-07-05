@@ -12,6 +12,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var circle1:SKShapeNode!
     var circle2:SKShapeNode!
     
+    var score:Int = 0
+    var tempScore:Int = -4
+    var scoreLabel:SKLabelNode!
+    
     var initialcircle1Position:CGPoint!
     
     override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
@@ -38,32 +42,58 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.physicsWorld.gravity = CGVectorMake(0, 0)
         physicsWorld.contactDelegate = self    
         addcircle1()
+        addScore()
     }
     
     func addRandomRow() {
         let randomNumber = Int(arc4random_uniform(6))
         
-        switch randomNumber {
-        case 0:
-            addRow(RowType(rawValue: 0)!)
-            break
-        case 1:
-            addRow(RowType(rawValue: 1)!)
-            break
-        case 2:
-            addRow(RowType(rawValue: 2)!)
-            break
-        case 3:
-            addRow(RowType(rawValue: 3)!)
-            break
-        case 4:
-            addRow(RowType(rawValue: 4)!)
-            break
-        case 5:
-            addRow(RowType(rawValue: 5)!)
-            break
-        default:
-            break
+        if (score < 50) {
+            switch randomNumber {
+            case 0:
+                addRow(RowType(rawValue: 0)!)
+                break
+            case 1:
+                addRow(RowType(rawValue: 1)!)
+                break
+            case 2:
+                addRow(RowType(rawValue: 2)!)
+                break
+            case 3:
+                addRow(RowType(rawValue: 3)!)
+                break
+            case 4:
+                addRow(RowType(rawValue: 4)!)
+                break
+            case 5:
+                addRow(RowType(rawValue: 5)!)
+                break
+            default:
+                break
+            }
+        } else {
+            switch randomNumber {
+            case 0:
+                addRow(0)
+                break
+            case 1:
+                addRow(1)
+                break
+            case 2:
+                addRow(2)
+                break
+            case 3:
+                addRow(3)
+                break
+            case 4:
+                addRow(4)
+                break
+            case 5:
+                addRow(5)
+                break
+            default:
+                break
+            }
         }
     }
     
@@ -74,6 +104,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         lastYieldTimeInterval += timeSinceLastUpdate
         if lastYieldTimeInterval > 0.6 {
             lastYieldTimeInterval = 0
+            tempScore += 1
+            score = tempScore > 0 ? tempScore : 0
+            scoreLabel.text = "Score: \(score)"
             addRandomRow()
         }
     }
@@ -93,7 +126,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func didBeginContact(contact: SKPhysicsContact) {
         if contact.bodyB.node?.name == "CIRCLE" {
-            print("GAME OVER")
             showGameOverScene()
         }
     }
