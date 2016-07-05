@@ -132,7 +132,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func showGameOverScene() {
         let transition = SKTransition.fadeWithDuration(0.5)
-        let gameOverScene = GameOverScene(size: self.size)
+        let gameOverScene = GameOverScene(size: self.size, score: score)
         self.view?.presentScene(gameOverScene, transition: transition)
     }
 }
