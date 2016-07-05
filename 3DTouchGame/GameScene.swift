@@ -48,7 +48,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func addRandomRow() {
         let randomNumber = Int(arc4random_uniform(6))
         
-        if (score < 50) {
+        if (score < 20) {
             switch randomNumber {
             case 0:
                 addRow(RowType(rawValue: 0)!)
